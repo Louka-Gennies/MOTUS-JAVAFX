@@ -70,7 +70,7 @@ public class GameController {
         System.out.println("The word to guess is: " + wordToGuess);
         String word = wordInput.getText().toLowerCase();
         List<HBox> coloredTexts = colorLetters(wordToGuess, word);
-        if (word.equals(wordToGuess)) {
+        if (word.equalsIgnoreCase(wordToGuess)) {
             previousAttemptsLabel.getChildren().addAll(0, coloredTexts);
             previousAttemptsLabel.getChildren().addFirst(new Text("\n"));
             winOrLoseOrErrorLabel.setText("Congratulations! You guessed the word!" );
@@ -102,6 +102,8 @@ public class GameController {
     }
 
     public List<HBox> colorLetters(String wordToGuess, String userInput) {
+        wordToGuess = wordToGuess.toLowerCase();
+        userInput = userInput.toLowerCase();
         List<HBox> coloredBoxes = new ArrayList<>();
         for (int i = 0; i < userInput.length(); i++) {
             char c = userInput.charAt(i);
