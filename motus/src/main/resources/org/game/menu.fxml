@@ -20,7 +20,7 @@
       <font>
          <Font name="System Bold" size="30.0" />
       </font></Label>
-    <Spinner fx:id="attemptsSpinner" editable="true" layoutX="301.0" layoutY="197.0">
+    <Spinner fx:id="attemptsSpinner" editable="false" layoutX="301.0" layoutY="197.0">
       <cursor>
          <Cursor fx:constant="HAND" />
       </cursor></Spinner>
@@ -28,7 +28,7 @@
       <font>
          <Font name="System Bold" size="30.0" />
       </font></Label>
-    <Spinner fx:id="wordLengthSpinner" editable="true" layoutX="302.0" layoutY="301.0">
+    <Spinner fx:id="wordLengthSpinner" editable="false" layoutX="302.0" layoutY="301.0">
       <cursor>
          <Cursor fx:constant="HAND" />
       </cursor></Spinner>
