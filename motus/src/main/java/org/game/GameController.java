@@ -1,5 +1,6 @@
 package org.game;
 
+import javafx.animation.PauseTransition;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
@@ -16,6 +17,7 @@ import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -78,8 +80,15 @@ public class GameController {
             previousAttemptsLabel.getChildren().addFirst(new Text("\n"));
             winOrLoseOrErrorLabel.setText("Congratulations! You guessed the word!" );
             wordInput.clear();
-            sleep(2000);
-            endGame();
+            PauseTransition pause = new PauseTransition(Duration.seconds(5));
+            pause.setOnFinished(event -> {
+                try {
+                    endGame();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            });
+            pause.play();
         } else {
             if (word.length() != wordToGuess.length()) {
                 winOrLoseOrErrorLabel.setText("The word must have " + wordToGuess.length() + " characters.");
@@ -92,8 +101,15 @@ public class GameController {
                     previousAttemptsLabel.getChildren().addAll(0, coloredTexts);
                     previousAttemptsLabel.getChildren().addFirst(new Text("\n"));
                     wordInput.clear();
-                    sleep(2000);
-                    endGame();
+                    PauseTransition pause = new PauseTransition(Duration.seconds(5));
+                    pause.setOnFinished(event -> {
+                        try {
+                            endGame();
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                    });
+                    pause.play();
                 } else {
                     winOrLoseOrErrorLabel.setText("Try again!");
                     previousAttemptsLabel.getChildren().addAll(0, coloredTexts);
@@ -130,7 +146,7 @@ public class GameController {
         return coloredBoxes;
     }
 
-    private void endGame() {
+    private void endGame() throws InterruptedException {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/game/endGame.fxml"));
             Parent root = loader.load();
