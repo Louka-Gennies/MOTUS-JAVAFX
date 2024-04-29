@@ -47,6 +47,10 @@ public class GameController {
         attemptsLabel.setText("Attempts remaining: " + attempts);
     }
 
+    public void setWinOrLoseOrErrorLabel() {
+        winOrLoseOrErrorLabel.setText("Try to guess the word! The first letter is: " + wordToGuess.charAt(0));
+    }
+
     public void setWordToGuess(String wordToGuess) {
         this.wordToGuess = wordToGuess;
     }
@@ -62,7 +66,6 @@ public class GameController {
                 wordInput.setText(newValue.replaceAll("[^a-z]", ""));
             }
         });
-        winOrLoseOrErrorLabel.setText("Guess the word!");
     }
 
     @FXML
