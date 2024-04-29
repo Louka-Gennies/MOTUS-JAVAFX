@@ -11,16 +11,16 @@
     <padding>
         <Insets bottom="10" left="10" right="10" top="10" />
     </padding>
-    <Label fx:id="attemptsLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="74.0" layoutY="22.0" prefHeight="35.0" prefWidth="602.0" style="-fx-font-size: 24" textFill="WHITE">
+    <Label fx:id="attemptsLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="44.0" layoutY="22.0" prefHeight="35.0" prefWidth="663.0" style="-fx-font-size: 24" textFill="WHITE">
       <font>
          <Font name="System Bold" size="20.0" />
       </font></Label>
     <TextField fx:id="wordInput" layoutX="275.0" layoutY="76.0" onAction="#submitWord" prefHeight="25.0" prefWidth="200.0" />
-    <Label fx:id="winOrLoseOrErrorLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="148.0" layoutY="119.0" prefHeight="17.0" prefWidth="454.0" textFill="WHITE">
+    <Label fx:id="winOrLoseOrErrorLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="25.0" layoutY="117.0" prefHeight="36.0" prefWidth="700.0" textFill="WHITE">
       <font>
-         <Font size="30.0" />
+         <Font size="25.0" />
       </font></Label>
-    <TextFlow fx:id="previousAttemptsLabel" layoutX="25.0" layoutY="169.0" prefHeight="300.0" prefWidth="700.0" textAlignment="CENTER">
+    <TextFlow fx:id="previousAttemptsLabel" layoutX="25.0" layoutY="185.0" prefHeight="284.0" prefWidth="700.0" textAlignment="CENTER">
         <padding>
              <Insets bottom="10" left="10" right="10" top="10" />
         </padding>

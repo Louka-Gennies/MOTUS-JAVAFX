@@ -1,12 +1,16 @@
 package org.game;
 
 import javafx.fxml.FXML;
+import javafx.geometry.Insets;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
+import javafx.scene.layout.CornerRadii;
+import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
-import javafx.scene.text.Font;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -51,10 +55,7 @@ public class GameController {
     private void submitWord() {
         System.out.println("The word to guess is: " + wordToGuess);
         String word = wordInput.getText().toLowerCase();
-        List<Text> coloredTexts = colorLetters(wordToGuess, word);
-        for (Text text : coloredTexts) {
-            text.setFont(new Font(30));
-        }
+        List<HBox> coloredTexts = colorLetters(wordToGuess, word);
         if (word.equals(wordToGuess)) {
             previousAttemptsLabel.getChildren().addAll(0, coloredTexts);
             previousAttemptsLabel.getChildren().addFirst(new Text("\n"));
@@ -82,23 +83,28 @@ public class GameController {
         }
     }
 
-    public List<Text> colorLetters(String wordToGuess, String userInput) {
-        List<Text> coloredTexts = new ArrayList<>();
+    public List<HBox> colorLetters(String wordToGuess, String userInput) {
+        List<HBox> coloredBoxes = new ArrayList<>();
         for (int i = 0; i < userInput.length(); i++) {
             char c = userInput.charAt(i);
-            Text text = new Text(String.valueOf(c));
+            Label text = new Label(String.valueOf(c));
+            HBox box = new HBox();
+            box.getChildren().add(text);
 
             if (i < wordToGuess.length() && c == wordToGuess.charAt(i)) {
-                text.setFill(Color.GREEN);
+                box.setBackground(new Background(new BackgroundFill(Color.GREEN, CornerRadii.EMPTY, Insets.EMPTY)));
+                text.setFont(javafx.scene.text.Font.font(30));
             } else if (wordToGuess.contains(String.valueOf(c))) {
-                text.setFill(Color.ORANGE);
+                box.setBackground(new Background(new BackgroundFill(Color.ORANGE, CornerRadii.EMPTY, Insets.EMPTY)));
+                text.setFont(javafx.scene.text.Font.font(30));
             } else {
-                text.setFill(Color.RED);
+                box.setBackground(new Background(new BackgroundFill(Color.RED, CornerRadii.EMPTY, Insets.EMPTY)));
+                text.setFont(javafx.scene.text.Font.font(30));
             }
 
-            coloredTexts.add(text);
+            coloredBoxes.add(box);
         }
-        return coloredTexts;
+        return coloredBoxes;
     }
 
 }
