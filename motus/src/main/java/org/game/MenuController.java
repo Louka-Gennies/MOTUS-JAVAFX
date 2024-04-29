@@ -55,5 +55,6 @@ public class MenuController {
         GameController gameController = loader.getController();
         gameController.setAttempts(attemptsSpinner.getValue());
         gameController.setWordToGuess(findWord());
+        gameController.setPrimaryStage(primaryStage);
     }
 }

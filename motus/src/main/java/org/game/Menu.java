@@ -11,15 +11,6 @@ public class Menu {
         this.words = words;
     }
 
-    public String findWord(int wordLength) {
-        int randomIndex = (int) (Math.random() * words.size());
-        String wordToGuess = (String) words.get(randomIndex);
-        while (wordToGuess.length() != wordLength) {
-            randomIndex = (int) (Math.random() * words.size());
-            wordToGuess = (String) words.get(randomIndex);
-        }
-        return wordToGuess;
-    }
 
     public void startGame() throws Exception {
         Library library = new Library();
