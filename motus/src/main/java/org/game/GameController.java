@@ -28,6 +28,10 @@ import static java.lang.Thread.sleep;
 public class GameController {
 
     private Stage primaryStage;
+    private int time = 300;
+
+    @FXML
+    private Label timerLabel;
 
     @FXML
     private Label attemptsLabel;
@@ -68,10 +72,25 @@ public class GameController {
                 wordInput.setText(newValue.replaceAll("[^a-z]", ""));
             }
         });
+        PauseTransition timer = new PauseTransition(Duration.seconds(1));
+        timer.setOnFinished(event -> {
+            time--;
+            timerLabel.setText("Time remaining: " + time + " seconds");
+            if (time == 0) {
+                try {
+                    endGame();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+            timer.play();
+        });
+        timer.play();
     }
 
     @FXML
     private void submitWord() throws InterruptedException {
+        timerLabel.setText("Time remaining: " + time + " seconds");
         System.out.println("The word to guess is: " + wordToGuess);
         String word = wordInput.getText().toLowerCase();
         List<HBox> coloredTexts = colorLetters(wordToGuess, word);
@@ -96,7 +115,7 @@ public class GameController {
             } else {
                 attempts--;
                 attemptsLabel.setText("Attempts remaining: " + attempts);
-                if (attempts == 0) {
+                if (attempts == 0 || time <= 0) {
                     winOrLoseOrErrorLabel.setText("You lost! The word was: " + wordToGuess);
                     previousAttemptsLabel.getChildren().addAll(0, coloredTexts);
                     previousAttemptsLabel.getChildren().addFirst(new Text("\n"));
