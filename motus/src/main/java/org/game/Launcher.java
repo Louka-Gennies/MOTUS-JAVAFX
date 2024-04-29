@@ -26,6 +26,7 @@ public class Launcher {
         System.out.println("Choose the mode:");
         System.out.println("1. Console mode");
         System.out.println("2. GUI mode");
+        System.out.print("3. Exit game");
 
         int choice = scanner.nextInt();
 
@@ -41,6 +42,9 @@ public class Launcher {
                 break;
             case 2:
                 App.main(args);
+                break;
+            case 3:
+                System.out.println("Exiting game...");
                 break;
             default:
                 System.out.println("Invalid choice. Please choose 1 for console mode or 2 for GUI mode.");
