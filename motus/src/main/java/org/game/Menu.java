@@ -22,13 +22,10 @@ public class Menu {
     }
 
     public void startGame() throws Exception {
-        System.out.println("Enter the number of attempts:");
-        int attempts = scanner.nextInt();
-        System.out.println("Enter the length of the word:");
-        int wordLength = scanner.nextInt();
-        Game game = new Game();
-        game.setAttempts(attempts);
-        game.setWordToGuess(findWord(wordLength));
-        game.submitWord();
+        Library library = new Library();
+        InitGame initialize = new InitGame(library.words);
+        PlayGame game = new PlayGame(initialize.getWordToFind(), initialize.getnumberOfTries());
+        System.out.println("The first letter of the word is: " + initialize.getWordToFind().charAt(0));
+        game.startGame();
     }
 }

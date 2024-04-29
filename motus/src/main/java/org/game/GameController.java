@@ -52,14 +52,14 @@ public class GameController {
     }
 
     @FXML
-    private void submitWord() {
+    private void submitWord() throws InterruptedException {
         System.out.println("The word to guess is: " + wordToGuess);
         String word = wordInput.getText().toLowerCase();
         List<HBox> coloredTexts = colorLetters(wordToGuess, word);
         if (word.equals(wordToGuess)) {
             previousAttemptsLabel.getChildren().addAll(0, coloredTexts);
             previousAttemptsLabel.getChildren().addFirst(new Text("\n"));
-            winOrLoseOrErrorLabel.setText("Congratulations! You guessed the word!");
+            winOrLoseOrErrorLabel.setText("Congratulations! You guessed the word!" );
             wordInput.clear();
         } else {
             if (word.length() != wordToGuess.length()) {
