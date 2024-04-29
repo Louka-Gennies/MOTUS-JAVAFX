@@ -1,8 +1,10 @@
 package org.game;
 
-import javafx.application.Platform;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Background;
@@ -10,14 +12,20 @@ import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
 import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import static java.lang.Thread.sleep;
+
 public class GameController {
+
+    private Stage primaryStage;
 
     @FXML
     private Label attemptsLabel;
@@ -43,6 +51,10 @@ public class GameController {
         this.wordToGuess = wordToGuess;
     }
 
+    public void setPrimaryStage(Stage primaryStage) {
+        this.primaryStage = primaryStage;
+    }
+
     @FXML
     public void initialize() {
         wordInput.textProperty().addListener((observable, oldValue, newValue) -> {
@@ -58,12 +70,13 @@ public class GameController {
         System.out.println("The word to guess is: " + wordToGuess);
         String word = wordInput.getText().toLowerCase();
         List<HBox> coloredTexts = colorLetters(wordToGuess, word);
-        if (word.equalsIgnoreCase(wordToGuess)) {
+        if (word.equals(wordToGuess)) {
             previousAttemptsLabel.getChildren().addAll(0, coloredTexts);
             previousAttemptsLabel.getChildren().addFirst(new Text("\n"));
             winOrLoseOrErrorLabel.setText("Congratulations! You guessed the word!" );
             wordInput.clear();
-            restartGame();
+            sleep(2000);
+            endGame();
         } else {
             if (word.length() != wordToGuess.length()) {
                 winOrLoseOrErrorLabel.setText("The word must have " + wordToGuess.length() + " characters.");
@@ -76,7 +89,8 @@ public class GameController {
                     previousAttemptsLabel.getChildren().addAll(0, coloredTexts);
                     previousAttemptsLabel.getChildren().addFirst(new Text("\n"));
                     wordInput.clear();
-                    restartGame();
+                    sleep(2000);
+                    endGame();
                 } else {
                     winOrLoseOrErrorLabel.setText("Try again!");
                     previousAttemptsLabel.getChildren().addAll(0, coloredTexts);
@@ -88,8 +102,6 @@ public class GameController {
     }
 
     public List<HBox> colorLetters(String wordToGuess, String userInput) {
-        wordToGuess = wordToGuess.toLowerCase();
-        userInput = userInput.toLowerCase();
         List<HBox> coloredBoxes = new ArrayList<>();
         for (int i = 0; i < userInput.length(); i++) {
             char c = userInput.charAt(i);
@@ -99,13 +111,13 @@ public class GameController {
 
             if (i < wordToGuess.length() && c == wordToGuess.charAt(i)) {
                 box.setBackground(new Background(new BackgroundFill(Color.GREEN, CornerRadii.EMPTY, Insets.EMPTY)));
-                text.setFont(javafx.scene.text.Font.font(30));
+                text.setFont(Font.font(30));
             } else if (wordToGuess.contains(String.valueOf(c))) {
                 box.setBackground(new Background(new BackgroundFill(Color.ORANGE, CornerRadii.EMPTY, Insets.EMPTY)));
-                text.setFont(javafx.scene.text.Font.font(30));
+                text.setFont(Font.font(30));
             } else {
                 box.setBackground(new Background(new BackgroundFill(Color.RED, CornerRadii.EMPTY, Insets.EMPTY)));
-                text.setFont(javafx.scene.text.Font.font(30));
+                text.setFont(Font.font(30));
             }
 
             coloredBoxes.add(box);
@@ -113,19 +125,16 @@ public class GameController {
         return coloredBoxes;
     }
 
-    private void restartGame() throws InterruptedException {
-        Stage stage = (Stage) winOrLoseOrErrorLabel.getScene().getWindow();
-        // Close the current scene
-        stage.close();
-
-        // Relaunch the application
-        Platform.runLater(() -> {
-            try {
-                new App().start(new Stage());
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        });
+    private void endGame() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/game/endGame.fxml"));
+            Parent root = loader.load();
+            EndGameController endGameController = loader.getController();
+            endGameController.setPrimaryStage(primaryStage);
+            primaryStage.setScene(new Scene(root));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
 }

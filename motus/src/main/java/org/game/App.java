@@ -20,12 +20,12 @@ public class App extends Application {
         MenuController menuController = loader.getController();
         menuController.setPrimaryStage(primaryStage);
         menuController.setWords(loadWordsFromFile());
-        primaryStage.setTitle("Game Menu");
+        primaryStage.setTitle("Motus");
         primaryStage.setScene(new Scene(root));
         primaryStage.show();
     }
 
-    private ArrayList<Object> loadWordsFromFile() {
+    public static ArrayList<Object> loadWordsFromFile() {
         ArrayList<Object> words = new ArrayList<>();
         try (BufferedReader reader = new BufferedReader(new FileReader("src/main/resources/org/game/words.txt"))) {
             String line;
